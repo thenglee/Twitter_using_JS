@@ -1,0 +1,24 @@
+{
+  "name": "Twitter_in_JS",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "express": "^4.12.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/thenglee/Twitter_using_JS.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thenglee/Twitter_using_JS/issues"
+  },
+  "homepage": "https://github.com/thenglee/Twitter_using_JS"
+}
