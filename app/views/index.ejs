@@ -5,8 +5,13 @@
 </head>
 <body>
 	<h1>Welcome to Twitter!</h1>
+	<% if (userName){ %>
+		<h2>Hello <%= userName %></h2>
+		<a href="/signout">Sign out</a>
+	<% } else { %>
+		<a href="/signup">Sign Up</a> <br />
+		<a href="/login">Login</a> <br />
+	<% } %>
 	<img src="/tweet.png" alt="tweet"> <br />
-	<a href="/signup">Sign Up</a> <br />
-	<a href="/login">Login</a>
 </body>
 </html>

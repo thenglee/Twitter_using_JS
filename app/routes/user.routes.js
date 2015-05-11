@@ -38,7 +38,9 @@ passport.use(new LocalStrategy({ passReqToCallback: true },
 }));
 
 router.get('/', function(req, res){
-	res.render('index.ejs');
+	res.render('index.ejs', {
+		userName: req.user ? req.user.username : ''
+	});
 });
 
 
