@@ -37,8 +37,6 @@ UserSchema.pre('save', function(next){
 		this.password = this.hashPassword(this.password);
 	}
 
-	this.gravatar_link = "";
-
 	next();
 });
 
@@ -46,11 +44,9 @@ UserSchema.methods.hashPassword = function(password){
 	return crypto.pbkdf2Sync(password, this.salt, 10000, 64).toString('base64');
 };
 
-var createGravatar = function(email){
-	if (email){
-		return crypto.createHash('md5').update(email).digest('hex');
-	}
-}
+UserSchema.methods.authenticate = function(password){
+	return this.password === this.hashPassword(password);
+};
 
 module.exports = mongoose.model('User', UserSchema);
 

@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Login</title>
+</head>
+<body>
+	<% if (message){ %>
+		<div><%= message %></div>
+	<% } %>
+	<form action="/login" method="post">
+		<legend>Login</legend>
+		<input name="username" placeholder="Username"><br />
+		<input name="password" type="password" placeholder="Password"><br />
+		<input type="Submit" value="Login">
+	</form>
+	<p>Need an account? <a href="/signup">Signup</a></p>
+	<p>Or go to <a href="/">home</a></p>
+</body>
+</html>
