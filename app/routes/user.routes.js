@@ -37,6 +37,10 @@ passport.use(new LocalStrategy({ passReqToCallback: true },
 		});
 }));
 
+router.get('/', function(req, res){
+	res.render('index.ejs');
+});
+
 
 
 router.route('/signup')
