@@ -54,6 +54,18 @@ router.route('/login')
 
 router.route('/users')
 	.post(function(req, res, next){
+
+		if ((req.body.password !== "") && (req.body.confirm_password !== "")){
+			if (req.body.password !== req.body.confirm_password){
+				req.flash('signupMessage', 'Passwords do not match!');
+				return res.redirect('/signup');
+			}
+		}else{
+			req.flash('signupMessage', 'No password entered');
+			return res.redirect('/signup');
+		}
+		
+
 		if (!req.user){
 			var user = new User();
 
