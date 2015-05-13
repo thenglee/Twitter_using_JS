@@ -23,7 +23,10 @@ var UserSchema = new Schema({
 		match: [/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, 
 		"Please enter a valid email address"]
 	},
-	password: String,
+	password: {
+		type: String,
+		validate: [validatePasswordLength, 'Password must be at least 8 characters long']
+	},
 	bio: {
 		type: String,
 		trim: true
@@ -33,6 +36,10 @@ var UserSchema = new Schema({
 	followers: [Number],
 	salt: String
 });
+
+function validatePasswordLength(password){
+	return password.length == 8;
+}
 
 UserSchema.pre('save', function(next){
 	if (this.password){
