@@ -21,16 +21,20 @@ router.get('/', function(req, res){
 });
 
 
+router.get('/signup', function(req, res){
+	if (!req.user){
+		res.render('signup.ejs', { message: req.flash('signupMessage') });
+	}else{
+		return res.redirect('/');
+	}
+});
 
-router.route('/signup')
-	.get(function(req, res){
-		if (!req.user){
-			res.render('signup.ejs', { message: req.flash('signupMessage') });
-		}else{
-			return res.redirect('/');
-		}
-		
-	});
+
+router.get('/logout', function(req, res){
+	req.logout();
+	res.redirect('/');
+})
+
 
 router.route('/login')
 	.get(function(req, res){
@@ -46,7 +50,6 @@ router.route('/login')
 		failureRedirect: '/login',
 		failureFlash: true 
 	}));
-
 
 
 router.route('/users')
@@ -71,11 +74,11 @@ router.route('/users')
 					return res.redirect('/signup');
 				}
 
-				// req.login(user, function(err){
-				// 	if (err) return next(err);
+				req.login(user, function(err){
+					if (err) return next(err);
 
-				// 	return res.redirect('/');
-				// });
+					return res.redirect('/');
+				});
 			});
 
 		}else{

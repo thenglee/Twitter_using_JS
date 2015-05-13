@@ -9,7 +9,8 @@ var UserSchema = new Schema({
 		type: String,
 		unique: true,
 		required: 'Username is required',
-		trim: true
+		trim: true,
+		lowercase: true
 	},
 	name: {
 		type: String,
@@ -19,7 +20,9 @@ var UserSchema = new Schema({
 	email: { 
 		type: String,
 		required: 'Email is required',
+		unique: true,
 		trim: true,
+		lowercase: true,
 		match: [/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, 
 		"Please enter a valid email address"]
 	},
@@ -42,6 +45,7 @@ function validatePasswordLength(password){
 }
 
 UserSchema.pre('save', function(next){
+
 	if (this.password){
 		this.salt = new Buffer(crypto.randomBytes(16).toString('base64'), 'base64');
 		this.password = this.hashPassword(this.password);
