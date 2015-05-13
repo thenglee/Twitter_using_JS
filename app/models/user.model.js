@@ -28,6 +28,7 @@ var UserSchema = new Schema({
 	},
 	password: {
 		type: String,
+		required: 'Password is required',
 		validate: [validatePasswordLength, 'Password must be at least 8 characters long']
 	},
 	bio: {

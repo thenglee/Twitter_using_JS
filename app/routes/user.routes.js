@@ -4,6 +4,26 @@ var router = express.Router();
 var User = require('../models/user.model');
 var passport = require('passport');
 
+var getErrorMessage = function(err){
+	var message = "";
+
+	if (err.code){
+		if (err.code == 11000 || err.code == 11001){
+			return message = "Username already exists."
+		}else{
+			return message = "Something went wrong."
+		}
+	}else{
+		for (var errName in err.errors){
+			if (err.errors[errName].message){
+				return message = err.errors[errName].message;
+			}
+		}
+	}
+
+	//return message;
+}
+
 
 function isLoggedIn(req, res, next){
 	if (req.isAuthenticated()){
@@ -54,24 +74,25 @@ router.route('/login')
 
 router.route('/users')
 	.post(function(req, res, next){
-
-		if ((req.body.password !== "") && (req.body.confirm_password !== "")){
-			if (req.body.password !== req.body.confirm_password){
-				req.flash('signupMessage', 'Passwords do not match!');
-				return res.redirect('/signup');
-			}
-		}else{
-			req.flash('signupMessage', 'No password entered');
-			return res.redirect('/signup');
-		}
-		
-
 		if (!req.user){
 			var user = new User();
 
 			user.username = req.body.username;
 			user.name = req.body.name;
 			user.email = req.body.email;
+
+
+			if ((req.body.password !== "") && (req.body.confirm_password !== "")){
+				if (req.body.password !== req.body.confirm_password){
+					req.flash('signupMessage', 'Passwords do not match!');
+					return res.redirect('/signup');
+				}
+			}else{
+				req.flash('signupMessage', 'No password entered');
+				return res.redirect('/signup');
+			}
+
+
 			user.password = req.body.password
 			user.bio = req.body.bio;
 
@@ -82,7 +103,7 @@ router.route('/users')
 					console.log(err);
 					//console.log(err.errors);
 					//throw err;
-					req.flash('signupMessage', 'Error saving user');
+					req.flash('signupMessage', getErrorMessage(err));
 					return res.redirect('/signup');
 				}
 
