@@ -7,7 +7,7 @@ var crypto = require('crypto');
 var UserSchema = new Schema({
 	username: {
 		type: String,
-		//unique: true,
+		unique: true,
 		required: 'Username is required',
 		trim: true
 	},
@@ -18,7 +18,10 @@ var UserSchema = new Schema({
 	},
 	email: { 
 		type: String,
-		trim: true
+		required: 'Email is required',
+		trim: true,
+		match: [/^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i, 
+		"Please enter a valid email address"]
 	},
 	password: String,
 	bio: {
