@@ -10,6 +10,8 @@ var userRouter = require('./app/routes/user.routes');
 
 mongoose.connect('mongodb://localhost:27017/twitter');
 
+require('./config/passport')();
+
 app.set('views', './app/views');
 
 app.use(express.static('public'));
@@ -27,6 +29,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
+
 
 app.use('/', userRouter);
 
