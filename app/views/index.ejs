@@ -2,16 +2,48 @@
 <html>
 <head>
 	<title>Twitter</title>
+	<style>
+		textarea {
+			resize: none;
+		}
+		span {
+			font-size: 200%;
+		}
+	</style>
 </head>
 <body>
-	<h1>Welcome to Twitter!</h1>
-	<% if (userName){ %>
-		<h2>Hello <%= userName %></h2>
-		<a href="/logout">Sign out</a>
-	<% } else { %>
-		<a href="/signup">Sign Up</a> <br />
-		<a href="/login">Login</a> <br />
-	<% } %>
-	<img src="/tweet.png" alt="tweet"> <br />
+	<header>
+		<div>
+			<span>Welcome to Twitter!</span>
+			<img src="/tweet.png" alt="tweet" width="50" height="50"> 
+		</div>
+		
+		<% if (userName){ %>
+			<div>
+				<span>Hello <%= userName %> </span> &nbsp;
+				<a href="/logout">Sign out</a>
+			</div>
+			<br />
+		<% } else { %>
+			<div>
+				<a href="/signup">Sign Up </a>  &nbsp;
+				<a href="/login">Login</a> 
+			</div>
+		<% } %>
+	</header>
+
+	<main>
+		<% if (message){ %>
+			<div><%= message %></div>
+		<% } %>
+		
+		<% if (userName){ %>
+			
+			<% include ./partials/new_tweet %>
+			
+		<% } %>
+		
+	</main>
+
 </body>
 </html>

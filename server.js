@@ -7,6 +7,7 @@ var session = require('express-session');
 var passport = require('passport');
 
 var userRouter = require('./app/routes/user.routes');
+var tweetRouter = require('./app/routes/tweet.routes');
 
 mongoose.connect('mongodb://localhost:27017/twitter');
 
@@ -32,7 +33,7 @@ app.use(flash());
 
 
 app.use('/', userRouter);
-
+app.use('/', tweetRouter);
 
 app.listen(8000, function(){
 	console.log('Listening on port 8000...');

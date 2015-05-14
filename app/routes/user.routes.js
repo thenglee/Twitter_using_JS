@@ -36,7 +36,8 @@ function isLoggedIn(req, res, next){
 
 router.get('/', function(req, res){
 	res.render('index.ejs', {
-		userName: req.user ? req.user.username : ''
+		userName: req.user ? req.user.username : '',
+		message: req.flash('newTweetMessage')
 	});
 });
 
