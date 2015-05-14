@@ -8,12 +8,12 @@ var TweetSchema = new Schema({
 		trim: true
 	},
 	date_created: {
-		type: Date,
-		default: Date.now()
+		type: Date
+		//default: Date.now()
 	},
 	creator: {
-		type: Schema.Types.ObjectId,
-		ref: 'Tweet',
+		type: String,
+		ref: 'User',
 		required: true
 	}
 });

@@ -15,7 +15,7 @@
 	<header>
 		<div>
 			<span>Welcome to Twitter!</span>
-			<img src="/tweet.png" alt="tweet" width="50" height="50"> 
+			<img src="/img/tweet.png" alt="tweet" width="50" height="50"> 
 		</div>
 		
 		<% if (userName){ %>
@@ -40,10 +40,15 @@
 		<% if (userName){ %>
 			
 			<% include ./partials/new_tweet %>
+
+			<br />
+
+			<div class="tweet-list" data-username="<%= userName %>"></div>
 			
 		<% } %>
 		
 	</main>
-
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/index.js"></script>
 </body>
 </html>
