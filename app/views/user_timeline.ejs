@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter</title>
+</head>
+<body>
+	<header>
+		<div>
+			<img src="/img/tweet.png" alt="tweet" width="50" height="50"> 
+			<a href="/logout">Sign out</a>
+			<% if (showUser){ %>
+				<div id="show-user" data-showuser="<%= showUser %>"></div>
+			<% } %>
+		</div>
+		
+	</header>
+	<main>
+
+		<div class="user-profile"></div>
+		<br />
+		<div class="user-tweets"></div>
+
+	</main>
+
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/client.user_timeline.js"></script>
+</body>

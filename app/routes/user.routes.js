@@ -122,5 +122,33 @@ router.route('/users')
 	});
 
 
+router.get('/users/:username', function(req, res){
+	if (req.user){
+		res.render('user_timeline.ejs', {
+			showUser: req.params.username
+		});
+	}else{
+		return res.redirect('/');
+	}
+});
+
+router.get('/users/profile/:username', function(req, res){
+	if (req.user){
+
+		User.find({'username': req.params.username}, 'username name bio', function(err, docs){
+			if (err){
+				console.log(err);
+				res.sendStatus(404);
+			}
+
+			return res.json(docs);
+		});
+
+
+	}else{
+		return res.redirect('/');
+	}
+});
+
 module.exports = router;
 

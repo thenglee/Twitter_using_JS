@@ -36,8 +36,8 @@ var UserSchema = new Schema({
 		trim: true
 	},
 	gravatar_link: String,
-	following: [Number],
-	followers: [Number],
+	following: [{ type: String, ref: 'User' }],
+	followers: [{ type: String, ref: 'User' }],
 	salt: String
 });
 
