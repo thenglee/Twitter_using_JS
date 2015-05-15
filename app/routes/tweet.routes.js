@@ -48,5 +48,18 @@ router.get('/tweets/:username', function(req, res){
 	}
 });
 
+router.route('/tweets/:tweet_id')
+	.delete(function(req, res){
+		Tweet.findByIdAndRemove(req.params.tweet_id, function(err){
+			if (err){
+				console.log(err);
+				req.flash('indexMessage', 'Error deleting tweet');
+				return res.redirect('/');
+			}
+
+			res.sendStatus(204);
+		});
+	});
+
 
 module.exports = router;

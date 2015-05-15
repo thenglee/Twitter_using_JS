@@ -19,7 +19,7 @@
 		</div>
 		
 		<% if (userName){ %>
-			<div>
+			<div id="userName" data-username="<%= userName %>">
 				<span>Hello <%= userName %> </span> &nbsp;
 				<a href="/logout">Sign out</a>
 			</div>
@@ -49,6 +49,6 @@
 		
 	</main>
 	<script src="/js/jquery-2.1.4.min.js"></script>
-	<script src="/js/index.js"></script>
+	<script src="/js/client.index.js"></script>
 </body>
 </html>
