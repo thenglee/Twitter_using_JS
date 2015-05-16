@@ -1,16 +1,11 @@
-var express = require('express');
-var router = express.Router();
-
 var User = require('../models/user.model');
 var Tweet = require('../models/tweet.model');
 
-
-router.post('/tweets', function(req, res){
+exports.create = function(req, res){
 	if (req.user){
 		var tweet = new Tweet();
 
 		tweet.message = req.body.tweet;
-		//tweet.creator = req.user.id;
 		tweet.creator = req.user.username;
 		tweet.date_created = Date.now();
 
@@ -27,10 +22,23 @@ router.post('/tweets', function(req, res){
 	}else{
 		res.redirect('/');
 	}
-});
+};
 
 
-router.get('/tweets/:username', function(req, res){
+exports.delete = function(req, res){
+	Tweet.findByIdAndRemove(req.params.tweet_id, function(err){
+		if (err){
+			console.log(err);
+			req.flash('indexMessage', 'Error deleting tweet');
+			return res.redirect('/');
+		}
+
+		res.sendStatus(204);
+	});
+};
+
+
+exports.getTweetsByUser = function(req, res){
 	if (req.user){
 
 		Tweet.find({'creator': req.params.username}, {}, { sort: { 'date_created': -1 }, limit: 30 }, function(err, docs){
@@ -46,20 +54,4 @@ router.get('/tweets/:username', function(req, res){
 	}else{
 		res.redirect('/');
 	}
-});
-
-router.route('/tweets/:tweet_id')
-	.delete(function(req, res){
-		Tweet.findByIdAndRemove(req.params.tweet_id, function(err){
-			if (err){
-				console.log(err);
-				req.flash('indexMessage', 'Error deleting tweet');
-				return res.redirect('/');
-			}
-
-			res.sendStatus(204);
-		});
-	});
-
-
-module.exports = router;
+};

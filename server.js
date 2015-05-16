@@ -6,8 +6,8 @@ var flash = require('connect-flash');
 var session = require('express-session');
 var passport = require('passport');
 
-var userRouter = require('./app/routes/user.routes');
-var tweetRouter = require('./app/routes/tweet.routes');
+var userRouter = require('./app/routes/users.routes');
+var tweetRouter = require('./app/routes/tweets.routes');
 
 mongoose.connect('mongodb://localhost:27017/twitter');
 
