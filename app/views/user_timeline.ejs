@@ -6,7 +6,9 @@
 <body>
 	<header>
 		<div>
+			<div id="user-name" data-username="<%= userName %>">
 			<img src="/img/tweet.png" alt="tweet" width="50" height="50"> 
+			<a href="/">Home</a> &nbsp;
 			<a href="/logout">Sign out</a>
 			<% if (showUser){ %>
 				<div id="show-user" data-showuser="<%= showUser %>"></div>
@@ -18,7 +20,8 @@
 
 		<div class="user-profile"></div>
 		<br />
-		<div class="user-tweets"></div>
+
+		<div class="tweet-list"></div>
 
 	</main>
 

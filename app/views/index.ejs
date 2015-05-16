@@ -20,7 +20,6 @@
 		
 		<% if (userName){ %>
 			<div id="userName" data-username="<%= userName %>">
-				<span>Hello <%= userName %> </span> &nbsp;
 				<a href="/logout">Sign out</a>
 			</div>
 			<br />
@@ -36,15 +35,25 @@
 		<% if (message){ %>
 			<div><%= message %></div>
 		<% } %>
-		
-		<% if (userName){ %>
-			
-			<% include ./partials/new_tweet %>
+
+		<% if (profile){ %>
+
+			<div>
+				<p><%= userName %></p>
+				<p><%= profile.name %></p>
+				<p><%= profile.bio %></p> 
+				<div id="tweets">Tweets: <%= profile.numTweets %> </div>
+				<div id="following">Following: <%= profile.numFollowing %> </div>
+				<div id="followers">Followers: <%= profile.numFollowers %> </div>
+			</div>
 
 			<br />
 
+			<% include ./partials/new_tweet %>
+
+
 			<div class="tweet-list" data-username="<%= userName %>"></div>
-			
+		
 		<% } %>
 		
 	</main>

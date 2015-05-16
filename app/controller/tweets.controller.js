@@ -47,7 +47,6 @@ exports.getTweetsByUser = function(req, res){
 				req.flash('indexMessage', 'Error finding tweets');
 				return res.redirect('/');
 			}
-
 			res.json(docs);
 		});
 

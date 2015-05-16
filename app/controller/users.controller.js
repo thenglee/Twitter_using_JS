@@ -1,4 +1,5 @@
 var User = require('../models/user.model');
+var Tweet = require('../models/tweet.model');
 var passport = require('passport');
 
 
@@ -22,19 +23,62 @@ var getErrorMessage = function(err){
 	//return message;
 }
 
-function isLoggedIn(req, res, next){
-	if (req.isAuthenticated()){
-		return next();
-	}
+// function isLoggedIn(req, res, next){
+// 	if (req.isAuthenticated()){
+// 		return next();
+// 	}
 
-	res.redirect('/');
+// 	res.redirect('/');
+// }
+
+function getProfile(req){
+	return {
+		'name': req.user.name,
+		'bio': req.user.bio,
+		'numTweets': req.user.tweets_count,
+		'numFollowing': req.user.following.length,
+		'numFollowers': req.user.followers.length,
+	}
 }
+
+// var getTweets = function(username){
+// 	var tweets = [];
+
+// 	Tweet.find({'creator': username}, {}, { sort: { 'date_created': -1 }, limit: 30 }, function(err, docs){
+// 		if (err){
+// 			console.log(err);
+// 			throw err;
+// 		}
+
+// 		//console.log(docs);
+// 		//return docs;
+
+// 		for (var i in docs){
+// 			tweet = JSON.stringify(docs[i]);
+// 			console.log(tweet);
+// 		 	tweets.push(tweet);
+// 		 }
+
+// 		//  console.log('tweets: ' + tweets);
+
+// 		 //return tweets;
+// 		//return (JSON.stringify(docs));
+// 		return tweets;
+// 	});
+// 	 console.log('tweets: ' + tweets);
+
+// 	 //return tweets;
+// }
+
 
 
 exports.renderIndex = function(req, res){
+
 	res.render('index.ejs', {
 		userName: req.user ? req.user.username : '',
-		message: req.flash('indexMessage')
+		message: req.flash('indexMessage'),
+		profile: req.user ? getProfile(req) : null
+		//tweets: req.user ? getTweets(req.user.username) : null
 	});
 };
 
@@ -81,6 +125,7 @@ exports.create = function(req, res){
 
 		user.password = req.body.password
 		user.bio = req.body.bio;
+		user.tweets_count = 0;
 
 
 		user.save(function(err){
@@ -108,7 +153,8 @@ exports.create = function(req, res){
 exports.renderUserTimeline = function(req, res){
 	if (req.user){
 		res.render('user_timeline.ejs', {
-			showUser: req.params.username
+			showUser: req.params.username,
+			userName: req.user ? req.user.username : ''
 		});
 	}else{
 		return res.redirect('/');
@@ -127,11 +173,12 @@ exports.userProfile = function(req, res){
 			return res.json(docs);
 		});
 
-
 	}else{
 		return res.redirect('/');
 	}
 };
+
+
 
 
 

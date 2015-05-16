@@ -35,11 +35,14 @@ var UserSchema = new Schema({
 		type: String,
 		trim: true
 	},
-	gravatar_link: String,
+	//tweets_count: Number,
 	following: [{ type: String, ref: 'User' }],
 	followers: [{ type: String, ref: 'User' }],
 	salt: String
 });
+
+UserSchema.add({ tweets_count: Number });
+
 
 function validatePasswordLength(password){
 	return password.length == 8;
