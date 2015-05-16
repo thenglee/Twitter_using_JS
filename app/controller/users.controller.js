@@ -36,8 +36,8 @@ function getProfile(req){
 		'name': req.user.name,
 		'bio': req.user.bio,
 		'numTweets': req.user.tweets_count,
-		'numFollowing': req.user.following.length,
-		'numFollowers': req.user.followers.length,
+		'numFollowing': req.user.following_count,
+		'numFollowers': req.user.followers_count
 	}
 }
 
@@ -126,6 +126,8 @@ exports.create = function(req, res){
 		user.password = req.body.password
 		user.bio = req.body.bio;
 		user.tweets_count = 0;
+		user.following_count = 0;
+		user.followers_count = 0;
 
 
 		user.save(function(err){
@@ -164,10 +166,10 @@ exports.renderUserTimeline = function(req, res){
 exports.userProfile = function(req, res){
 	if (req.user){
 
-		User.find({'username': req.params.username}, 'username name bio', function(err, docs){
+		User.find({'username': req.params.username}, 'username name bio tweets_count following_count followers_count', function(err, docs){
 			if (err){
 				console.log(err);
-				res.status(404).json('some text')
+				res.status(404).json('Error finding user details');
 			}
 
 			return res.json(docs);

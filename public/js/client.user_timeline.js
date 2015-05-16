@@ -14,7 +14,10 @@ $(function(){
 	function displayUserProfile(user){
 		var content = '<h3>' + user[0].username + '</h3>' +
 						'<h4>' + user[0].name + '</h4>' +
-						'<p>' + user[0].bio +'</p>';
+						'<p>' + user[0].bio +'</p>' + 
+						'Tweets: <span id="tweets">' + user[0].tweets_count + '</span> | ' +
+						'Following: <span id="following">' + user[0].following_count + '</span> | ' +
+						'Followers: <span id="followers">' + user[0].followers_count + '</span> '
 
 		$('.user-profile').append(content);
 	}
@@ -66,6 +69,12 @@ $(function(){
 			url: '/tweets/' + target.data('tweet')
 		}).done(function(){
 			target.parents('li').remove();
+
+			var tweets_count = parseInt($('#tweets').text());
+
+			tweets_count -= 1;
+
+			$('#tweets').text(tweets_count);
 		});
 
 	});

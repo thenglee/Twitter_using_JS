@@ -16,7 +16,13 @@ exports.create = function(req, res){
 				return res.redirect('/');
 			}
 
-			res.redirect('/');
+			User.findOneAndUpdate({'username': req.user.username}, {$inc: { 'tweets_count': 1} }, function(err){
+				if (err) throw err;
+
+				res.redirect('/');
+
+			});	
+
 		});
 
 	}else{
@@ -33,7 +39,13 @@ exports.delete = function(req, res){
 			return res.redirect('/');
 		}
 
-		res.sendStatus(204);
+		User.findOneAndUpdate({'username': req.user.username}, {$inc: { 'tweets_count': -1} }, function(err){
+			if (err) throw err;
+
+			res.sendStatus(204);
+
+		});	
+
 	});
 };
 

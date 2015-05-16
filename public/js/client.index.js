@@ -24,6 +24,8 @@ $(function(){
 		}
 
 		$('.tweet-list').append(list);
+
+
 	}
 
 	$('.tweet-list').on('click', 'a[data-tweet]', function(event){
@@ -38,6 +40,13 @@ $(function(){
 			url: '/tweets/' + target.data('tweet')
 		}).done(function(){
 			target.parents('li').remove();
+			var tweets_count = parseInt($('#tweets').text());
+
+			tweets_count -= 1;
+
+			$('#tweets').text(tweets_count);
+
+
 		});
 	});
 

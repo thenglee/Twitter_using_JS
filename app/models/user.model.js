@@ -41,7 +41,11 @@ var UserSchema = new Schema({
 	salt: String
 });
 
-UserSchema.add({ tweets_count: Number });
+UserSchema.add({ 
+	tweets_count: Number,
+	following_count: Number,
+	followers_count: Number
+});
 
 
 function validatePasswordLength(password){
@@ -65,6 +69,7 @@ UserSchema.methods.hashPassword = function(password){
 UserSchema.methods.authenticate = function(password){
 	return this.password === this.hashPassword(password);
 };
+
 
 module.exports = mongoose.model('User', UserSchema);
 

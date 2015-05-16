@@ -6,9 +6,6 @@
 		textarea {
 			resize: none;
 		}
-		span {
-			font-size: 200%;
-		}
 	</style>
 </head>
 <body>
@@ -42,9 +39,9 @@
 				<p><%= userName %></p>
 				<p><%= profile.name %></p>
 				<p><%= profile.bio %></p> 
-				<div id="tweets">Tweets: <%= profile.numTweets %> </div>
-				<div id="following">Following: <%= profile.numFollowing %> </div>
-				<div id="followers">Followers: <%= profile.numFollowers %> </div>
+				Tweets: <span id="tweets"><%= profile.numTweets %></span> |
+				Following: <span id="following"><%= profile.numFollowing %></span> |
+				Followers: <span id="followers"><%= profile.numFollowers %></span> 
 			</div>
 
 			<br />
