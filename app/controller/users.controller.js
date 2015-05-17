@@ -228,6 +228,28 @@ exports.followUser = function(req, res){
 	}
 };
 
+exports.unfollowUser = function(req, res){
+	if (req.user){
+
+		var current_user = req.user.username;
+		var unfollow_user = req.params.username;
+
+		User.findOneAndUpdate({'username': current_user},
+			{ $pull: { 'following': unfollow_user }, $inc: { 'following_count': -1} }, function(err){
+				if (err) throw err;
+				
+				User.findOneAndUpdate({'username': unfollow_user},
+					{ $pull: { 'followers': current_user }, $inc: { 'followers_count': -1} }, function(err){
+						if (err) throw err;
+
+						res.sendStatus(200);
+				});
+		});
+
+	}else{
+		res.redirect('/');
+	}
+};
 
 
 

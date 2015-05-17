@@ -28,5 +28,7 @@ router.get('/whotofollow', users.whoToFollow);
 
 router.put('/users/follow/:username', users.followUser);
 
+router.put('/users/unfollow/:username', users.unfollowUser);
+
 module.exports = router;
 
