@@ -180,6 +180,54 @@ exports.userProfile = function(req, res){
 	}
 };
 
+exports.whoToFollow = function(req, res){
+	if (req.user){
+
+		var following = req.user.following;
+
+		following.push(req.user.username);
+
+		User.find({'username': { $nin: following }}, 'username name bio', { limit: 30 },function(err, docs){
+			if (err){
+				console.log(err);
+			} 
+
+			//console.log(docs);
+
+			//res.json(docs);
+
+			res.render('who_to_follow.ejs',{
+				to_follow_list: docs
+			})
+		});
+	}else{	
+		return res.redirect('/');
+	}
+};
+
+exports.followUser = function(req, res){
+	if (req.user){
+
+		var current_user = req.user.username;
+		var follow_user = req.params.username;
+
+		User.findOneAndUpdate({'username': current_user},
+			{ $addToSet: { 'following': follow_user }, $inc: { 'following_count': 1} }, function(err){
+				if (err) throw err;
+				
+				User.findOneAndUpdate({'username': follow_user},
+					{ $addToSet: { 'followers': current_user }, $inc: { 'followers_count': 1} }, function(err){
+						if (err) throw err;
+
+						res.sendStatus(200);
+				});
+		});
+
+	}else{
+		res.redirect('/');
+	}
+};
+
 
 
 

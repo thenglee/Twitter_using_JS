@@ -24,5 +24,9 @@ router.get('/users/:username', users.renderUserTimeline);
 
 router.get('/users/profile/:username', users.userProfile);
 
+router.get('/whotofollow', users.whoToFollow);
+
+router.put('/users/follow/:username', users.followUser);
+
 module.exports = router;
 

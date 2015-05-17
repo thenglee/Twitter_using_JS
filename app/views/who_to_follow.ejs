@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter</title>
+</head>
+<body>
+	<header>
+
+		<div>
+			<img src="/img/tweet.png" alt="tweet" width="50" height="50"> 
+			<a href="/">Home</a> &nbsp;
+			<a href="/logout">Sign out</a>
+
+		</div>
+
+		<p>Who to follow</p></header>
+	<main>
+
+		<% if (to_follow_list){ 
+			var user; %>
+
+			<% for (i in to_follow_list){ 
+				user = to_follow_list[i] %>
+
+				<div class="user" id="<%= user.username %>">
+					<a href="/users/<%= user.username %>"><%= user.username %></a> &nbsp; 
+					<span><%= user.name %></span> &nbsp; 
+					<span><%= user.bio %></span> &nbsp; 
+					<button class="follow" data-username="<%= user.username %>">Follow</button>
+				</div>
+
+			<% } %>
+		<% } %>
+
+	</main>
+
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/client.who_to_follow.js"></script>
+</body>
