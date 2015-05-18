@@ -20,9 +20,13 @@ router.get('/logout', users.logout);
 
 router.post('/users', users.create);
 
+router.put('/edit_profile', users.updateProfile)
+
 router.get('/users/:username', users.renderUserTimeline);
 
 router.get('/users/profile/:username', users.userProfile);
+
+router.get('/edit_profile', users.renderEditProfile);
 
 router.get('/whotofollow', users.whoToFollow);
 

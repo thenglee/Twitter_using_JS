@@ -41,6 +41,16 @@ function getProfile(req){
 	}
 }
 
+
+function getEditProfile(req){
+	return {
+		'username': req.user.username,
+		'name': req.user.name,
+		'email': req.user.email,
+		'bio': req.user.bio
+	}
+}
+
 // var getTweets = function(username){
 // 	var tweets = [];
 
@@ -152,6 +162,23 @@ exports.create = function(req, res){
 	}
 };
 
+exports.updateProfile = function(req, res){
+	if (req.user){
+
+		User.findOneAndUpdate({'username': req.user.username}, { $set: req.body }, function(err, doc){
+			if (err){
+				console.log(err);
+				
+			}
+
+			res.sendStatus(200);
+		});
+
+	}else{
+		res.redirect('/');
+	}
+}
+
 exports.renderUserTimeline = function(req, res){
 	if (req.user){
 		res.render('user_timeline.ejs', {
@@ -179,6 +206,19 @@ exports.userProfile = function(req, res){
 		return res.redirect('/');
 	}
 };
+
+exports.renderEditProfile = function(req, res){
+	if (req.user){
+		
+		res.render('edit_profile.ejs', {
+			editProfile: req.user ? getEditProfile(req) : null,
+			message: req.flash('updateMessage')
+		});
+	}else{
+		res.redirect('/');
+	}	
+};
+
 
 exports.whoToFollow = function(req, res){
 	if (req.user){

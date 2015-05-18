@@ -90,6 +90,7 @@ $(function(){
 			url: '/tweets/' + $('#show-user').data('showuser')
 		}).success(function(tweets){
 			appendToTweetList(tweets);
+			$('#tweets_count').text(tweets.length);
 		});
 
 		if (!($('#tweets').hasClass('active'))){
@@ -115,7 +116,9 @@ $(function(){
 			url: '/users/' + $('#show-user').data('showuser') + '/following'
 		}).success(function(users){
 			appendToFollowingList(users);
+			$('#following_count').text(users.length);
 		});
+
 
 		if (!($('#following').hasClass('active'))){
 			$('#following').addClass('active');
@@ -162,8 +165,8 @@ $(function(){
 				}else{
 
 					if ($('#user-name').data('username') == user.username){
-						btnMessage = "Edit Profile";
-					 	btnClass = "edit-profile";
+						btnMessage = "That's you!";
+					 	btnClass = "";
 					}else{
 						btnMessage = "Follow";
 						btnClass = "follow";
@@ -192,6 +195,7 @@ $(function(){
 			url: '/users/' + $('#show-user').data('showuser') + '/followers'
 		}).success(function(users){
 			appendToFollowersList(users);
+			$('#followers_count').text(users.length);
 		});
 
 		if (!($('#followers').hasClass('active'))){
@@ -224,8 +228,8 @@ $(function(){
 			}else{
 
 				if ($('#user-name').data('username') == user.username){
-					btnMessage = "Edit Profile";
-				 	btnClass = "edit-profile";
+					btnMessage = "That's you!";
+				 	btnClass = "";
 				}else{
 					btnMessage = "Follow";
 					btnClass = "follow";
@@ -279,8 +283,6 @@ $(function(){
 	$('.panel').on('mouseleave', '.unfollow', function(){
 		$(this).text('Following');
 	});
-
-
 
 
 

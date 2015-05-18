@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Twitter Sign Up</title>
+</head>
+<body>
+	<header>
+		<div>
+			<img src="/img/tweet.png" alt="tweet" width="50" height="50"> 
+			<a href="/">Home</a> &nbsp;
+			<a href="/logout">Sign out</a>
+		</div>
+
+	</header>
+	<main>			
+		<div class="message"></div>
+		<form action="/edit_profile" method="PUT">
+			<legend>Edit Profile</legend>
+			<label>Username </label><input name="username" value="<%= editProfile.username %>"><br />
+			<label>Name </label><input name="name" value="<%= editProfile.name %>"><br />
+			<label>Email </label><input name="email" value="<%= editProfile.email %>"><br />
+			<label>Bio</label><input name="bio" value="<%= editProfile.bio %>"><br />
+			<input type="Submit" value="Update">
+		</form>
+
+	</main>
+	<script src="/js/jquery-2.1.4.min.js"></script>
+	<script src="/js/client.edit_profile.js"></script>
+</body>
