@@ -187,7 +187,7 @@ exports.whoToFollow = function(req, res){
 
 		following.push(req.user.username);
 
-		User.find({'username': { $nin: following }}, 'username name bio', { limit: 30 },function(err, docs){
+		User.find({'username': { $nin: following }}, 'username name bio', { limit: 30 }, function(err, docs){
 			if (err){
 				console.log(err);
 			} 
@@ -254,8 +254,124 @@ exports.unfollowUser = function(req, res){
 
 
 
+exports.userFollowing = function(req, res){
+	if (req.user){
 
+		var username = req.params.username;
+		var followingList;
 
+		if (username == req.user.username){
+			followingList = req.user.following;
+
+			User.find({'username': { $in: followingList }}, 'username name bio -_id', function(err, docs){
+				if (err){
+					console.log(err);
+				}
+
+				res.json(docs);
+			});
+
+		}else{
+
+			User.find({'username': username}, 'following -_id', function(err, followingListDocs){
+				if (err){
+					console.log(err);
+				}
+
+				followingList = followingListDocs[0].get("following");
+
+				User.find({'username': { $in: followingList }}, 'username name bio -_id', function(err, docs){
+					if (err){
+						console.log(err);
+					}
+
+					var doc;
+
+					for (var i in docs){
+						doc = docs[i];
+
+						if (req.user.following.indexOf(doc.get('username')) >= 0){
+							doc.set('isFollowed', true,  { strict: false });
+						}else{
+							doc.set('isFollowed', false,  { strict: false });
+						}
+					}
+
+					res.json(docs);
+				});
+			});
+		}
+		
+	}else{
+		res.redirect('/');
+	}
+};
+
+exports.userFollowers = function(req, res){
+	if (req.user){
+
+		var username = req.params.username;
+		var followersList;
+
+		if (username == req.user.username){
+			followersList = req.user.followers;
+
+			User.find({'username': { $in: followersList }}, 'username name bio -_id', function(err, docs){
+				if (err){
+					console.log(err);
+				}
+
+				var doc;
+
+				for (var i in docs){
+					doc = docs[i];
+
+					if (req.user.following.indexOf(doc.get('username')) >= 0){
+						doc.set('isFollowed', true,  { strict: false });
+					}else{
+						doc.set('isFollowed', false,  { strict: false });
+					}
+				}
+
+				res.json(docs);
+			});
+
+		}else{
+
+			User.find({'username': username}, 'followers -_id', function(err, followersListDocs){
+				if (err){
+					console.log(err);
+				}
+
+				followersList = followersListDocs[0].get("followers");  
+
+				User.find({'username': { $in: followersList }}, 'username name bio -_id', function(err, docs){
+					if (err){
+						console.log(err);
+					}
+
+					var doc;
+
+					for (var i in docs){
+						doc = docs[i];
+
+						if (req.user.following.indexOf(doc.get('username')) >= 0){
+							doc.set('isFollowed', true,  { strict: false });
+						}else{
+							doc.set('isFollowed', false,  { strict: false });
+						}
+					}
+
+					res.json(docs);
+				});
+			});
+		}
+		
+	}else{
+		res.redirect('/');
+	}
+
+};
 
 
 

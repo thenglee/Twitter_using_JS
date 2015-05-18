@@ -30,5 +30,9 @@ router.put('/users/follow/:username', users.followUser);
 
 router.put('/users/unfollow/:username', users.unfollowUser);
 
+router.get('/users/:username/following', users.userFollowing);
+
+router.get('/users/:username/followers', users.userFollowers);
+
 module.exports = router;
 

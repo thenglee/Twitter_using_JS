@@ -2,6 +2,27 @@
 <html>
 <head>
 	<title>Twitter</title>
+	<style>
+		.following-list{
+			display: none;
+		}
+
+		.followers-list{
+			display: none;
+		}
+
+		.user-profile{
+			display: none;
+		}
+
+		.message{
+			display: none;
+		}
+
+		.active{
+			color: blue;
+		}
+	</style>
 </head>
 <body>
 	<header>
@@ -17,11 +38,24 @@
 		
 	</header>
 	<main>
+		<div class="message"></div>
 
-		<div class="user-profile"></div>
+		<div class="user-profile">
+			<h3 id="username"></h3>
+			<h4 id="name"></h4>
+			<p id="bio"></p> 
+			<button id="tweets" class="active">Tweets: <span id="tweets_count"></span></button>
+			<button id="following">Following: <span id="following_count"></span></button>
+			<button id="followers">Followers: <span id="followers_count"></span></button>
+		</div>
+
 		<br />
 
-		<div class="tweet-list"></div>
+		<div class="panel">
+			<div class="tweet-list"></div>
+			<div class="following-list"></div>
+			<div class="followers-list"></div>
+		</div>
 
 	</main>
 
