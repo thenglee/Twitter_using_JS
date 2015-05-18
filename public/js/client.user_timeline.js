@@ -44,12 +44,10 @@ $(function(){
 
 			if (($('#user-name').data('username')) == ($('#show-user').data('showuser'))){
 				content = '<a href="/users/' + tweet.creator + '">' + tweet.creator + 
-						'</a>: <a href="/tweets/' + tweet.creator + '/' + tweet._id + '">' + 
-						tweet.message + '</a> <a href="#" data-tweet="'+ tweet._id + '">Delete</a>' ;
+						'</a>: ' + tweet.message + ' <a href="#" data-tweet="'+ tweet._id + '">Delete</a>' ;
 			}else{
 				content = '<a href="/users/' + tweet.creator + '">' + tweet.creator + 
-						'</a>: <a href="/tweets/' + tweet.creator + '/' + tweet._id + '">' + 
-						tweet.message + '</a>';
+						'</a>: ' + tweet.message;
 			}
 
 			list.push($('<li>', { html: content }));
@@ -78,7 +76,7 @@ $(function(){
 
 			tweets_count -= 1;
 
-			$('#tweets').text(tweets_count);
+			$('#tweets_count').text(tweets_count);
 		});
 
 	});

@@ -6,6 +6,17 @@
 		textarea {
 			resize: none;
 		}
+		.following-list{
+			display: none;
+		}
+
+		.followers-list{
+			display: none;
+		}
+
+		.active{
+			color: blue;
+		}
 	</style>
 </head>
 <body>
@@ -16,7 +27,7 @@
 		</div>
 		
 		<% if (userName){ %>
-			<div id="userName" data-username="<%= userName %>">
+			<div id="user-name" data-username="<%= userName %>">
 				<a href="/edit_profile">Edit Profile</a> &nbsp;
 				<a href="/logout">Sign out</a>
 			</div>
@@ -36,13 +47,14 @@
 
 		<% if (profile){ %>
 
-			<div>
-				<p><%= userName %></p>
+			<div class="user-profile">
+				<p><a href="/users/<%= userName %>"><%= userName %></a></p>
 				<p><%= profile.name %></p>
 				<p><%= profile.bio %></p> 
-				Tweets: <span id="tweets"><%= profile.numTweets %></span> |
-				Following: <span id="following"><%= profile.numFollowing %></span> |
-				Followers: <span id="followers"><%= profile.numFollowers %></span> 
+				<button id="tweets" class="active">Tweets: <span id="tweets_count"><%= profile.numTweets %></span></button>
+				<button id="following">Following: <span id="following_count"><%= profile.numFollowing %></span></button>
+				<button id="followers">Followers: <span id="followers_count"><%= profile.numFollowers %></span></button>
+
 			</div>
 
 			<br />
@@ -55,9 +67,11 @@
 
 			<br />
 
-			
-
-			<div class="tweet-list" data-username="<%= userName %>"></div>
+			<div class="panel">
+				<div class="tweet-list"></div>
+				<div class="following-list"></div>
+				<div class="followers-list"></div>
+			</div>
 		
 		<% } %>
 		
